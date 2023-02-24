@@ -1,7 +1,4 @@
-import React from "react";
-
-import "./App.css";
-import { Tasks } from "./pages/Tasks";
+import { Tasks } from "./pages/TasksList";
 
 function App() {
   if (process.env.NODE_ENV === "production") {
