@@ -2,7 +2,10 @@ import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 
-export const CustomizedInputBase = () => {
+interface Props {
+  placeholder: string;
+}
+export const CustomizedInputBase = ({ placeholder }: Props) => {
   return (
     <Paper
       component="form"
@@ -16,7 +19,7 @@ export const CustomizedInputBase = () => {
     >
       <InputBase
         sx={{ ml: 1, flex: 1 }}
-        placeholder="Search"
+        placeholder={placeholder}
         inputProps={{ "aria-label": "input" }}
       />
       <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
