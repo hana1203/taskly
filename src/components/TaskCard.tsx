@@ -1,5 +1,9 @@
 import { Box, Checkbox, Paper } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  updateTaskToLocalStorage,
+  getTaskListFromLocalStorage,
+} from "../apis/storage";
 import { Task, TaskListStateProps } from "../interfaces/interfaces";
 
 export const TaskCard = ({
@@ -10,31 +14,52 @@ export const TaskCard = ({
   setTasklist,
 }: Task & TaskListStateProps) => {
   const [isChecked, setIsChecked] = useState(isCompleted);
+  const [currentCard, setCurrentCard] = useState<Task>();
   console.log("isChecked", isChecked);
+  console.log("currentCard", currentCard);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(e.target.checked);
-    updateTaskArray(taskId, e);
+    updateCurrentTask(taskId, e);
+    if (currentCard) {
+      updateTaskToLocalStorage(currentCard);
+    }
   };
 
-  const updateTaskArray = (
+  const updateCurrentTask = (
     paramId: number,
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    // const currentTask = tasklist.find((el) => el.taskId === paramId);
-    // if (currentTask) {
-    //   setTasklist([...tasklist, { ...currentTask }]);
-    // }
-    setTasklist(
-      tasklist.map((task) => {
-        if (paramId === task.taskId) {
-          return { ...task, isCompleted: e.target.checked };
-        } else {
-          return task;
-        }
-      })
-    );
+    const currentTask = tasklist.find((el) => el.taskId === paramId);
+    if (currentTask) {
+      setCurrentCard({ ...currentTask, isCompleted: e.target.checked });
+      return currentCard;
+    }
+
+    // const currentTaskIdx = tasklist.findIndex((el) => el.taskId === paramId);
+    // const copiedArr = [...tasklist];
+    // copiedArr[currentTaskIdx].isCompleted = e.target.checked;
+    // setTasklist(copiedArr);
+
+    // setTasklist(
+    //   tasklist.map((task) => {
+    //     if (paramId === task.taskId) {
+    //       return { ...task, isCompleted: e.target.checked };
+    //     } else {
+    //       return task;
+    //     }
+    //   })
+    // );
   };
+  // console.log("태스크카드에서 tasklist ", tasklist);
+
+  useEffect(() => {
+    if (currentCard) {
+      updateTaskToLocalStorage(currentCard);
+      const updatedStoredList = getTaskListFromLocalStorage();
+      setTasklist([...updatedStoredList]);
+    }
+  }, [currentCard]);
 
   return (
     <Box
