@@ -2,16 +2,24 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { styled } from "@mui/material";
+import { Task, TaskListStateProps } from "../interfaces/interfaces";
+import { getTaskListFromLocalStorage } from "../api/storage";
 
-export const Dropdown = () => {
-  const [age, setAge] = useState("");
-
+export const Dropdown = ({ tasklist, setTasklist }: TaskListStateProps) => {
+  const storedTaskList = getTaskListFromLocalStorage();
+  const [filterName, setFilterName] = useState("");
   const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value);
-    console.log(age);
+    setFilterName(event.target.value);
+    if (event.target.value === "inprogress") {
+      setTasklist(storedTaskList.filter((el) => el.isCompleted === false));
+    } else if (event.target.value === "completed") {
+      setTasklist(storedTaskList.filter((el) => el.isCompleted === true));
+    } else setTasklist(storedTaskList);
   };
+  console.log(filterName);
+  console.log("드롭다운tasklist", tasklist);
 
   return (
     <>
@@ -20,13 +28,13 @@ export const Dropdown = () => {
         <Select
           labelId="select-label"
           id="select"
-          value={age}
+          value={filterName}
           label="Task"
           onChange={handleChange}
         >
-          <MenuItem value={10}>All Tasks</MenuItem>
-          <MenuItem value={20}>Inprogress</MenuItem>
-          <MenuItem value={30}>Completed</MenuItem>
+          <MenuItem value={"all"}>All Tasks</MenuItem>
+          <MenuItem value={"inprogress"}>Inprogress</MenuItem>
+          <MenuItem value={"completed"}>Completed</MenuItem>
         </Select>
       </StyledFormControl>
     </>
