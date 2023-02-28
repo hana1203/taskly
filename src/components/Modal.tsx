@@ -11,7 +11,7 @@ import { Task, TaskListStateProps } from "../interfaces/interfaces";
 import {
   addTaskToLocalStorage,
   getTaskListFromLocalStorage,
-} from "../apis/storage";
+} from "../api/storage";
 
 export const Modal = ({ tasklist, setTasklist }: TaskListStateProps) => {
   const [open, setOpen] = useState(false);
@@ -21,6 +21,11 @@ export const Modal = ({ tasklist, setTasklist }: TaskListStateProps) => {
 
   const handleOnchange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
+    setCard({
+      taskId: new Date().getTime(), //unique id as milliseconds
+      description: e.target.value,
+      isCompleted: false,
+    });
   };
 
   //open modal
@@ -44,7 +49,6 @@ export const Modal = ({ tasklist, setTasklist }: TaskListStateProps) => {
     if (inputValue == null) {
       window.alert("Please fill in the task.");
     }
-
     if (inputValue) {
       //list로 저장
       // setTasklist((current) => [
@@ -55,11 +59,17 @@ export const Modal = ({ tasklist, setTasklist }: TaskListStateProps) => {
       //     isCompleted: false,
       //   },
       // ]);
-      setCard({
-        taskId: new Date().getTime(), //unique id as milliseconds
-        description: inputValue,
-        isCompleted: false,
-      });
+
+      // setCard({
+      //   taskId: new Date().getTime(), //unique id as milliseconds
+      //   description: inputValue,
+      //   isCompleted: false,
+      // });
+      if (card) {
+        addTaskToLocalStorage(card);
+        const storedList = getTaskListFromLocalStorage();
+        setTasklist([...storedList]);
+      }
     }
     setInputValue(null);
   };
@@ -67,13 +77,13 @@ export const Modal = ({ tasklist, setTasklist }: TaskListStateProps) => {
   console.log("card", card);
   console.log("모달에서 tasklist 상태", tasklist);
 
-  useEffect(() => {
-    if (card) {
-      addTaskToLocalStorage(card);
-      const storedList = getTaskListFromLocalStorage();
-      setTasklist([...storedList]);
-    }
-  }, [card]);
+  // useEffect(() => {
+  //   if (card) {
+  //     addTaskToLocalStorage(card);
+  //     const storedList = getTaskListFromLocalStorage();
+  //     setTasklist([...storedList]);
+  //   }
+  // }, [card]);
 
   return (
     <div>
