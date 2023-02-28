@@ -8,7 +8,7 @@ declare module "@mui/material/styles" {
     lg: false;
     xl: false;
     mobile: true;
-    // tablet: true;
+    tablet: true;
     // laptop: true;
     desktop: true;
   }
@@ -18,22 +18,22 @@ declare module "@mui/material/styles" {
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#556cd6",
+      main: "#E5D1FA",
     },
     secondary: {
-      main: "#19857b",
+      main: "#FFF4D2",
     },
     error: {
-      main: "#fff123",
+      main: "#AD7BE9",
     },
     background: {
-      default: "#fff",
+      default: "#ECF2FF",
     },
   },
   breakpoints: {
     values: {
       mobile: 0,
-      //   tablet: 640,
+      tablet: 640,
       //   laptop: 1024,
       desktop: 1280,
     },
