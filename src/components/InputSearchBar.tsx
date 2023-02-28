@@ -4,6 +4,7 @@ import IconButton from "@mui/material/IconButton";
 import { useState } from "react";
 import { getTaskListFromLocalStorage } from "../api/storage";
 import { TaskListStateProps } from "../interfaces/interfaces";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 interface Props {
   placeholder: string;
@@ -33,11 +34,13 @@ export const InputSearchBar = ({
     <Paper
       component="form"
       sx={{
+        m: "16px",
         p: "2px 4px",
         display: "flex",
         alignItems: "center",
-        width: [300, 400],
+        width: [300, 400, 720],
         //300px in mobile, 400px in desktop
+        alignSelf: "center",
       }}
     >
       <InputBase
@@ -49,11 +52,11 @@ export const InputSearchBar = ({
       />
       <IconButton
         type="button"
-        sx={{ p: "10px" }}
+        sx={{ p: 0 }}
         aria-label="search"
         onClick={onClickCloseIcon}
       >
-        {/* <SearchIcon /> */}
+        {searchInput && <CancelIcon sx={{ p: 0 }} />}
       </IconButton>
     </Paper>
   );
