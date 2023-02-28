@@ -6,8 +6,8 @@ interface Props {
 export const ButtonComponent = ({ children, onClick }: Props) => {
   return (
     <Button
-      // color="primary"
-      // variant="contained"
+      color="primary"
+      variant="contained"
       disabled={false}
       size="medium"
       sx={{ borderRadius: "64px" }}

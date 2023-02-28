@@ -12,6 +12,7 @@ import {
   addTaskToLocalStorage,
   getTaskListFromLocalStorage,
 } from "../api/storage";
+import { styled } from "@mui/system";
 
 export const Modal = ({ tasklist, setTasklist }: TaskListStateProps) => {
   const [open, setOpen] = useState(false);
@@ -86,7 +87,7 @@ export const Modal = ({ tasklist, setTasklist }: TaskListStateProps) => {
   // }, [card]);
 
   return (
-    <div>
+    <Wrapper>
       <Button
         onClick={handleClickOpen}
         color="primary"
@@ -102,22 +103,33 @@ export const Modal = ({ tasklist, setTasklist }: TaskListStateProps) => {
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        fullWidth={true}
+        maxWidth={"tablet"}
       >
-        <DialogTitle id="alert-dialog-title">{"Add a new task"}</DialogTitle>
-        <DialogContent>
+        <DialogTitle id="alert-dialog-title" sx={{ m: 2 }}>
+          {"Add a new task"}
+        </DialogTitle>
+        <DialogContent sx={{ m: 1 }}>
           <DialogContentText id="alert-dialog-description">
             <OutlinedInput
               size="small"
-              placeholder="Please enter text"
+              placeholder="new task here ✏️"
               onChange={handleOnchange}
+              fullWidth={true}
             />
           </DialogContentText>
         </DialogContent>
-        <DialogActions sx={{ justifyContent: "space-evenly" }}>
+        <DialogActions sx={{ justifyContent: "space-evenly", mt: 2, mb: 4 }}>
           <ButtonComponent onClick={handleCancel}>Cancel</ButtonComponent>
           <ButtonComponent onClick={handleSave}>Save</ButtonComponent>
         </DialogActions>
       </Dialog>
-    </div>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled("div")(
+  () => `text-align: end;
+  margin: 16px;
+  `
+);

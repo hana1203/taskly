@@ -1,4 +1,4 @@
-import { Tasks } from "./pages/TasksList";
+import { TasksList } from "./pages/TasksList";
 
 function App() {
   if (process.env.NODE_ENV === "production") {
@@ -6,7 +6,7 @@ function App() {
   }
   return (
     <div className="App">
-      <Tasks />
+      <TasksList />
     </div>
   );
 }

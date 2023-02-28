@@ -6,12 +6,12 @@ interface Props {
 }
 export const CountCard = ({ lenOfTaskList }: Props) => {
   return (
-    <Card sx={{ maxWidth: 84, maxHeight: 84, boxShadow: 1 }}>
+    <Card sx={{ maxWidth: 84, maxHeight: 84, boxShadow: 1, mt: 2, mb: 2 }}>
       <CardContent sx={{ p: 1 }}>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           Total tasks
         </Typography>
-        <Typography variant="h6" component="div">
+        <Typography variant="h6" component="div" textAlign={"center"}>
           {lenOfTaskList}
         </Typography>
       </CardContent>

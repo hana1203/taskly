@@ -23,7 +23,15 @@ export const Dropdown = ({ tasklist, setTasklist }: TaskListStateProps) => {
 
   return (
     <>
-      <StyledFormControl sx={{ m: 1, minWidth: 120 }} size="small">
+      <StyledFormControl
+        sx={{
+          mt: 2,
+          mb: 2,
+          width: [160, 400],
+          maxWidth: 160,
+        }}
+        size="small"
+      >
         <InputLabel id="select-label">Task</InputLabel>
         <Select
           labelId="select-label"
@@ -42,5 +50,5 @@ export const Dropdown = ({ tasklist, setTasklist }: TaskListStateProps) => {
 };
 
 const StyledFormControl = styled(FormControl)({
-  backgroundColor: "#fff999",
+  // backgroundColor: "#fff999",
 });

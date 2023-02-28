@@ -76,18 +76,24 @@ export const TaskCard = ({
         borderRadius: 1,
         p: 2,
         m: 2,
-        maxWidth: 400,
-        // width: [300, 400],
+        width: [300, 400, 720],
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
+        backgroundColor: "secondary.main",
       }}
     >
-      <Checkbox checked={isChecked} onChange={handleChange}></Checkbox>
-      <Paper elevation={0} sx={{ p: 1, width: [] }}>
+      <Checkbox
+        checked={isChecked}
+        onChange={handleChange}
+        color={"error"}
+      ></Checkbox>
+      <Paper
+        elevation={0}
+        sx={{ p: 1, width: [], backgroundColor: "secondary.main" }}
+      >
         {description}
       </Paper>
     </Box>
   );
 };
-// It is a long established fact that a reader will be distracted by the readable content of a page when looking at its
