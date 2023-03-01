@@ -1,5 +1,5 @@
 import { Box, Container } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getTaskListFromLocalStorage } from "../api/storage";
 import { CountCard } from "../components/CountCard";
 import { Dropdown } from "../components/Dropdown";
@@ -13,11 +13,6 @@ export const TasksList = () => {
     getTaskListFromLocalStorage()
   );
   let lenOfTaskList = getTaskListFromLocalStorage().length;
-
-  // useEffect(() => {
-  //   getTaskListFromLocalStorage();
-  // }, [tasklist]);
-  // console.log("taskListFromStorage", taskListFromStorage);
   console.log("최상위tasklist", tasklist);
 
   return (

@@ -6,7 +6,7 @@ const storesObj = stores ? JSON.parse(stores) : [];
 export const addTaskToLocalStorage = (task: Task) => {
   storesObj.push(task);
   localStorage.setItem("stores", JSON.stringify(storesObj));
-  console.log("storesObj", storesObj);
+  console.log("애드로컬스토리지storesObj", storesObj);
 };
 
 export const getTaskListFromLocalStorage = (): Task[] => {

@@ -4,7 +4,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import { ButtonComponent } from "./ButtonComponent";
 import { Task, TaskListStateProps } from "../interfaces/interfaces";
@@ -51,21 +51,6 @@ export const Modal = ({ tasklist, setTasklist }: TaskListStateProps) => {
       window.alert("Please fill in the task.");
     }
     if (inputValue) {
-      //list로 저장
-      // setTasklist((current) => [
-      //   ...current,
-      //   {
-      //     taskId: id++,
-      //     description: inputValue,
-      //     isCompleted: false,
-      //   },
-      // ]);
-
-      // setCard({
-      //   taskId: new Date().getTime(), //unique id as milliseconds
-      //   description: inputValue,
-      //   isCompleted: false,
-      // });
       if (card) {
         addTaskToLocalStorage(card);
         const storedList = getTaskListFromLocalStorage();
@@ -77,14 +62,6 @@ export const Modal = ({ tasklist, setTasklist }: TaskListStateProps) => {
 
   console.log("card", card);
   console.log("모달에서 tasklist 상태", tasklist);
-
-  // useEffect(() => {
-  //   if (card) {
-  //     addTaskToLocalStorage(card);
-  //     const storedList = getTaskListFromLocalStorage();
-  //     setTasklist([...storedList]);
-  //   }
-  // }, [card]);
 
   return (
     <Wrapper>

@@ -2,9 +2,9 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { styled } from "@mui/material";
-import { Task, TaskListStateProps } from "../interfaces/interfaces";
+import { TaskListStateProps } from "../interfaces/interfaces";
 import { getTaskListFromLocalStorage } from "../api/storage";
 
 export const Dropdown = ({ tasklist, setTasklist }: TaskListStateProps) => {

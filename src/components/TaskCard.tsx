@@ -1,9 +1,6 @@
 import { Box, Checkbox, Paper } from "@mui/material";
 import { useEffect, useState } from "react";
-import {
-  updateTaskToLocalStorage,
-  getTaskListFromLocalStorage,
-} from "../api/storage";
+import { updateTaskToLocalStorage } from "../api/storage";
 import { Task, TaskListStateProps } from "../interfaces/interfaces";
 
 export const TaskCard = ({
@@ -21,12 +18,6 @@ export const TaskCard = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(e.target.checked);
     updateCurrentTask(taskId, e);
-    //동기적으로 실행안됨
-    // if (currentCard) {
-    //   updateTaskToLocalStorage(currentCard);
-    // const updatedStoredList = getTaskListFromLocalStorage();
-    // setTasklist([...updatedStoredList]);
-    // }
   };
 
   const updateCurrentTask = (
@@ -46,22 +37,8 @@ export const TaskCard = ({
         })
       );
     }
-    // const currentTaskIdx = tasklist.findIndex((el) => el.taskId === paramId);
-    // const copiedArr = [...tasklist];
-    // copiedArr[currentTaskIdx].isCompleted = e.target.checked;
-    // setTasklist(copiedArr);
-
-    // setTasklist(
-    //   tasklist.map((task) => {
-    //     if (paramId === task.taskId) {
-    //       return { ...task, isCompleted: e.target.checked };
-    //     } else {
-    //       return task;
-    //     }
-    //   })
-    // );
   };
-  // console.log("태스크카드에서 tasklist ", tasklist);
+  console.log("태스크카드에서 tasklist ", tasklist);
 
   useEffect(() => {
     if (currentCard) {
