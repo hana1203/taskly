@@ -2,6 +2,8 @@
 ## 📌 About
 This web app allows you to create tasks and keep track of ongoing/done tasks. 
 
+![taskly demo](https://user-images.githubusercontent.com/92300124/222063383-3adf3039-0295-4d86-991d-57eb7ed63495.gif)
+
 ## 📌 Link
 https://taskly-gamma.vercel.app/
 
