@@ -1,5 +1,5 @@
 import { Box, Container } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getTaskListFromLocalStorage } from "../api/storage";
 import { CountCard } from "../components/CountCard";
 import { Dropdown } from "../components/Dropdown";
@@ -12,7 +12,18 @@ export const TasksList = () => {
   const [tasklist, setTasklist] = useState<Task[]>(
     getTaskListFromLocalStorage()
   );
-  let lenOfTaskList = getTaskListFromLocalStorage().length;
+  const [activelist, setActivelist] = useState<Task[]>(
+    getTaskListFromLocalStorage().filter((el) => el.isCompleted === false)
+  );
+  // let lenOfTotal = getTaskListFromLocalStorage().length;
+
+  useEffect(() => {
+    setActivelist(
+      getTaskListFromLocalStorage().filter((el) => el.isCompleted === false)
+    );
+  }, [tasklist]);
+
+  console.log("액티브리스트", activelist);
   console.log("최상위tasklist", tasklist);
 
   return (
@@ -47,7 +58,7 @@ export const TasksList = () => {
           }}
         >
           <Dropdown tasklist={tasklist} setTasklist={setTasklist}></Dropdown>
-          <CountCard lenOfTaskList={lenOfTaskList}></CountCard>
+          <CountCard lenOfActivelist={activelist.length}></CountCard>
         </Box>
         <Box
           sx={{
