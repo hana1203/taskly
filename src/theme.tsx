@@ -16,6 +16,9 @@ declare module "@mui/material/styles" {
 
 // A custom theme for this app
 const theme = createTheme({
+  typography: {
+    fontFamily: ["'Rubik', sans-serif"].join(","),
+  },
   palette: {
     primary: {
       main: "#E5D1FA",
