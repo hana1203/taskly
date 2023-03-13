@@ -4,19 +4,38 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useState } from "react";
 import { styled } from "@mui/material";
-import { TaskListStateProps } from "../interfaces/interfaces";
+import {
+  TaskListStateProps,
+  FilterListSetProps,
+} from "../interfaces/interfaces";
 import { getTaskListFromLocalStorage } from "../api/storage";
 
-export const Dropdown = ({ tasklist, setTasklist }: TaskListStateProps) => {
+export const Dropdown = ({
+  tasklist,
+  setTasklist,
+  setIsFiltered,
+  setIsInprogress,
+  setActivelist,
+  setCompletedlist,
+}: TaskListStateProps & FilterListSetProps) => {
   const storedTaskList = getTaskListFromLocalStorage();
   const [filterName, setFilterName] = useState("");
   const handleChange = (event: SelectChangeEvent) => {
     setFilterName(event.target.value);
     if (event.target.value === "inprogress") {
-      setTasklist(storedTaskList.filter((el) => el.isCompleted === false));
+      // setTasklist(storedTaskList.filter((el) => el.isCompleted === false));
+      setIsFiltered?.(true);
+      setIsInprogress?.(true);
+      setActivelist(storedTaskList.filter((el) => el.isCompleted === false));
     } else if (event.target.value === "completed") {
-      setTasklist(storedTaskList.filter((el) => el.isCompleted === true));
-    } else setTasklist(storedTaskList);
+      // setTasklist(storedTaskList.filter((el) => el.isCompleted === true));
+      setIsFiltered?.(true);
+      setIsInprogress?.(false);
+      setCompletedlist(storedTaskList.filter((el) => el.isCompleted === true));
+    } else {
+      setIsFiltered?.(false);
+      setTasklist(storedTaskList);
+    }
   };
   console.log(filterName);
   console.log("드롭다운tasklist", tasklist);
