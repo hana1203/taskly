@@ -130,20 +130,16 @@ export const TasksList = () => {
                     tasklist={tasklist}
                   ></TaskCard>
                 ))
-            : tasklist.map((el) =>
-                tasklist.length === 0 ? (
-                  "There are no tasks."
-                ) : (
-                  <TaskCard
-                    key={el.taskId}
-                    taskId={el.taskId}
-                    description={el.description}
-                    isCompleted={el.isCompleted}
-                    setTasklist={setTasklist}
-                    tasklist={tasklist}
-                  ></TaskCard>
-                )
-              )}
+            : tasklist.map((el) => (
+                <TaskCard
+                  key={el.taskId}
+                  taskId={el.taskId}
+                  description={el.description}
+                  isCompleted={el.isCompleted}
+                  setTasklist={setTasklist}
+                  tasklist={tasklist}
+                ></TaskCard>
+              ))}
         </Box>
       </Container>
     </>

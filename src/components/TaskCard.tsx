@@ -27,15 +27,15 @@ export const TaskCard = ({
     const currentTask = tasklist.find((el) => el.taskId === paramId);
     if (currentTask) {
       setCurrentCard({ ...currentTask, isCompleted: e.target.checked });
-      setTasklist(
-        tasklist.map((task) => {
-          if (task.taskId === paramId) {
-            return { ...task, isCompleted: e.target.checked };
-          } else {
-            return task;
-          }
-        })
-      );
+      // setTasklist(
+      //   tasklist.map((task) => {
+      //     if (task.taskId === paramId) {
+      //       return { ...task, isCompleted: e.target.checked };
+      //     } else {
+      //       return task;
+      //     }
+      //   })
+      // );
     }
   };
   console.log("태스크카드에서 tasklist ", tasklist);
