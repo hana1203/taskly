@@ -4,29 +4,26 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import { ButtonComponent } from "./ButtonComponent";
 import { Task, TaskListStateProps } from "../interfaces/interfaces";
-import {
-  addTaskToLocalStorage,
-  getTaskListFromLocalStorage,
-} from "../api/storage";
+import { addTaskToLocalStorage } from "../api/storage";
 import { styled } from "@mui/system";
 
 export const Modal = ({ tasklist, setTasklist }: TaskListStateProps) => {
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState<string | null>();
-  console.log("inputValue", inputValue);
   const [card, setCard] = useState<Task>();
+  console.log("inputValue", inputValue);
 
   const handleOnchange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
-    setCard({
-      taskId: new Date().getTime(), //unique id as milliseconds
-      description: e.target.value,
-      isCompleted: false,
-    });
+    // setCard({
+    //   taskId: new Date().getTime(), //unique id as milliseconds
+    //   description: e.target.value,
+    //   isCompleted: false,
+    // });
   };
 
   //open modal
@@ -51,14 +48,26 @@ export const Modal = ({ tasklist, setTasklist }: TaskListStateProps) => {
       window.alert("Please fill in the task.");
     }
     if (inputValue) {
-      if (card) {
-        addTaskToLocalStorage(card);
-        const storedList = getTaskListFromLocalStorage();
-        setTasklist([...storedList]);
-      }
+      setCard({
+        taskId: new Date().getTime(), //unique id as milliseconds
+        description: inputValue,
+        isCompleted: false,
+      });
+      // if (card) {
+      //   addTaskToLocalStorage(card);
+      //   const storedList = getTaskListFromLocalStorage();
+      //   setTasklist([...storedList]);
+      // }
     }
     setInputValue(null);
   };
+
+  useEffect(() => {
+    if (card) {
+      setTasklist([...tasklist, card]);
+      addTaskToLocalStorage(card);
+    }
+  }, [card]);
 
   console.log("card", card);
   console.log("모달에서 tasklist 상태", tasklist);

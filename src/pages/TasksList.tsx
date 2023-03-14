@@ -12,14 +12,34 @@ export const TasksList = () => {
   const [tasklist, setTasklist] = useState<Task[]>(
     getTaskListFromLocalStorage()
   );
+
+  // let lenOfTotal = getTaskListFromLocalStorage().length;
+
+  //filtering한 상태에서 search하면 activelist 길이 바뀌니까 길이저장할 상태따로 관리
+  const [lenOfInprogress, setLenOfInprogress] = useState(
+    getTaskListFromLocalStorage().filter((el) => el.isCompleted === false)
+      .length
+  );
+  console.log("inprogress필터된 배열길이", lenOfInprogress);
+
+  //filtering 되어있는건지 상태 저장하기
+  const [isFiltered, setIsFiltered] = useState<boolean>(false);
+
+  //active, completed 상태?
+  const [isInprogress, setIsInprogress] = useState<boolean>(false);
+
+  //active, completed 상태로 따로 저장하기
   const [activelist, setActivelist] = useState<Task[]>(
     getTaskListFromLocalStorage().filter((el) => el.isCompleted === false)
   );
-  // let lenOfTotal = getTaskListFromLocalStorage().length;
+  const [completedlist, setCompletedlist] = useState<Task[]>(
+    getTaskListFromLocalStorage().filter((el) => el.isCompleted === true)
+  );
 
   useEffect(() => {
-    setActivelist(
+    setLenOfInprogress(
       getTaskListFromLocalStorage().filter((el) => el.isCompleted === false)
+        .length
     );
   }, [tasklist]);
 
@@ -48,6 +68,12 @@ export const TasksList = () => {
           placeholder="Search"
           tasklist={tasklist}
           setTasklist={setTasklist}
+          setActivelist={setActivelist}
+          setCompletedlist={setCompletedlist}
+          isFiltered={isFiltered}
+          isInprogress={isInprogress}
+          activelist={activelist}
+          completedlist={completedlist}
         ></InputSearchBar>
         <Box
           sx={{
@@ -57,8 +83,16 @@ export const TasksList = () => {
             alignItems: "center",
           }}
         >
-          <Dropdown tasklist={tasklist} setTasklist={setTasklist}></Dropdown>
-          <CountCard lenOfActivelist={activelist.length}></CountCard>
+          <Dropdown
+            tasklist={tasklist}
+            setTasklist={setTasklist}
+            setIsFiltered={setIsFiltered}
+            setIsInprogress={setIsInprogress}
+            setActivelist={setActivelist}
+            setCompletedlist={setCompletedlist}
+          ></Dropdown>
+          {/* <CountCard lenOfActivelist={activelist.length}></CountCard> */}
+          <CountCard lenOfActivelist={lenOfInprogress}></CountCard>
         </Box>
         <Box
           sx={{
@@ -74,16 +108,38 @@ export const TasksList = () => {
             // backgroundColor: "secondary.main",
           }}
         >
-          {tasklist.map((el) => (
-            <TaskCard
-              key={el.taskId}
-              taskId={el.taskId}
-              description={el.description}
-              isCompleted={el.isCompleted}
-              setTasklist={setTasklist}
-              tasklist={tasklist}
-            ></TaskCard>
-          ))}
+          {isFiltered
+            ? isInprogress
+              ? activelist.map((el) => (
+                  <TaskCard
+                    key={el.taskId}
+                    taskId={el.taskId}
+                    description={el.description}
+                    isCompleted={el.isCompleted}
+                    setTasklist={setTasklist}
+                    tasklist={tasklist}
+                  ></TaskCard>
+                ))
+              : completedlist.map((el) => (
+                  <TaskCard
+                    key={el.taskId}
+                    taskId={el.taskId}
+                    description={el.description}
+                    isCompleted={el.isCompleted}
+                    setTasklist={setTasklist}
+                    tasklist={tasklist}
+                  ></TaskCard>
+                ))
+            : tasklist.map((el) => (
+                <TaskCard
+                  key={el.taskId}
+                  taskId={el.taskId}
+                  description={el.description}
+                  isCompleted={el.isCompleted}
+                  setTasklist={setTasklist}
+                  tasklist={tasklist}
+                ></TaskCard>
+              ))}
         </Box>
       </Container>
     </>
